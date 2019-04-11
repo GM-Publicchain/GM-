@@ -3,11 +3,11 @@
 package main
 
 import (
-	_ "github.com/33cn/chain33/system"
-	_ "github.com/bityuan/bityuan/plugin"
+	_ "github.com/GM/ganam/system"
+	_ "github.com/ganma/GM/plugin"
 
-	"github.com/33cn/chain33/util/cli"
-	"github.com/bityuan/bityuan/cli/buildflags"
+	"github.com/GM/GANMA/util/cli"
+	"github.com/ganma/ganma/cli/buildflags"
 )
 
 func main() {
