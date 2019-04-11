@@ -1,8 +1,8 @@
 # golang1.9 or latest
 
-CHAIN33=github.com/33cn/chain33
-CHAIN33_PATH=vendor/${CHAIN33}
-plugin=github.com/33cn/plugin
+=github.com/ganma/GM
+_PATH=vendor/${GM}
+plugin=github.com/GM/plugin
 PKG_LIST_VET := `go list ./... | grep -v "vendor" | grep -v plugin/dapp/evm/executor/vm/common/crypto/bn256`
 PKG_LIST_INEFFASSIGN= `go list -f {{.Dir}} ./... | grep -v "vendor"`
 .PHONY: default build
@@ -12,8 +12,8 @@ default: build
 all: vendor build
 
 build:
-	go build -v -i -o bityuan
-	go build -v -i -o bityuan-cli github.com/bityuan/bityuan/cli
+	go build -v -i -o ganma
+	go build -v -i -o ganma-cli github.com/ganma/GM/cli
 
 
 vendor:
@@ -22,18 +22,18 @@ vendor:
 
 update:
 	go get -u -v github.com/kardianos/govendor
-	rm -rf vendor/${CHAIN33}
+	rm -rf vendor/${GM}
 	rm -rf vendor/${plugin}
 	rm -rf vendor/github.com/apache/thrift/tutorial/erl/
 	git clone --depth 1 -b master https://${plugin}.git vendor/${plugin}
-#	git clone --depth 1 -b update_chain33_191116 https://github.com/vipwzw/plugin.git vendor/${plugin}
+#	git clone --depth 1 -b update_c_191116 https://github.com/vipwzw/plugin.git vendor/${plugin}
 	rm -rf vendor/${plugin}/.git
 	cp -Rf vendor/${plugin}/vendor/* vendor/
 	rm -rf vendor/${plugin}/vendor
 
 	govendor init
-	go build -i -o tool github.com/bityuan/bityuan/vendor/github.com/33cn/chain33/cmd/tools
-	./tool import --path "plugin" --packname "github.com/bityuan/bityuan/plugin" --conf "plugin/plugin.toml"
+	go build -i -o tool github.com/ganma/GM/vendor/github.com/GM/ganma/cmd/tools
+	./tool import --path "plugin" --packname "github.com/ganma/GM/plugin" --conf "plugin/plugin.toml"
 
 updatevendor:
 	govendor add +e
@@ -73,7 +73,7 @@ autotest: ## build autotest binary
 	@cd build/autotest && bash ./build.sh && cd ../../
 	@if [ -n "$(dapp)" ]; then \
 		rm -rf build/autotest/local \
-		&& cp -r $(CHAIN33_PATH)/build/autotest/local $(CHAIN33_PATH)/build/autotest/*.sh build/autotest/ \
+		&& cp -r $(CHAIN33_PATH)/build/autotest/local $(C_PATH)/build/autotest/*.sh build/autotest/ \
 		&& cd build/autotest && bash ./copy-autotest.sh local && cd local && bash ./local-autotest.sh $(dapp) && cd ../../../; fi
 
 
@@ -82,9 +82,9 @@ clean:
 	@rm -rf datadir
 	@rm -rf logs
 	@rm -rf wallet
-	@rm -rf grpc33.log
-	@rm -rf bityuan
-	@rm -rf bityuan-cli
+	@rm -rf grpc.log
+	@rm -rf ganma
+	@rm -rf ganma-cli
 	@rm -rf tool
 	@rm -rf plugin/init.go
 	@rm -rf plugin/consensus/init
