@@ -1,5 +1,5 @@
 package init
 
 import (
-	_ "github.com/gm/plugin/plugin/consensus/ticket" //auto gen
+	_ "github.com/ganma/plugin/plugin/consensus/ticket" //auto gen
 )
