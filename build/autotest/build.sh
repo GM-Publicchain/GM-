@@ -10,13 +10,13 @@ if [ "$(uname)" == "Darwin" ]; then
     sedfix=".bak"
 fi
 
-AutoTestMain="../../vendor/github.com/33cn/chain33/cmd/autotest/main.go"
-ImportPlugin='"github.com/33cn/plugin/plugin"'
+AutoTestMain="../../vendor/github.com/GM/ganma/cmd/autotest/main.go"
+ImportPlugin='"github.com/GM/plugin/plugin"'
 
 function build_auto_test() {
-    cp ../../bityuan ../chain33
-    cp ../../bityuan-cli ../chain33-cli
-    cp ../../bityuan.toml ../chain33.toml
+    cp ../../ganma ../GM
+    cp ../../GANMA-cli ../GM-cli
+    cp ../../GANMA.toml ../GM.toml
 
     cp "${AutoTestMain}" ./
     sed -i $sedfix "/^package/a import _ ${ImportPlugin}" main.go
